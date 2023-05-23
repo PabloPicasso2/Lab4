@@ -1,25 +1,58 @@
-#include "gen/gen.hpp"
-#include "square/square.hpp"
-#include "sinus/sinus.hpp"
-#include "triangle/triangle.hpp"
 #include <iostream>
+#include <optional>
+#include <string>
 
-int main()
-{
-    Comp_Gen *generator = new Comp_Concrete(2.0);
-    double period1 = 12.0, amplitude1 = 1.0;
-    // Dec_square: period = 10.0, amplitude1 = 1.0
-    //generator = new Dec_square(generator, amplitude1, period1);
-    // Dec_sinus: period = 12.0, amplitude1 = 1.0
-    //generator = new Dec_sinus(generator, amplitude1, period1);
-    // Dec_triangle: period = 12.0, amplitude1 = 1.0
-    generator = new Dec_triangle(generator, amplitude1, period1);
+struct Signal {
+    virtual int generate() { return 0; }
+};
 
-    for (int i = 0; i < 2*period1; ++i)
-    {
-        std::cout << generator->generate() << std::endl;
+struct SquareDecorator : Signal {
+   private:
+    Signal* m_sig;
+
+    int generate_square() { return 1; }
+
+   public:
+    SquareDecorator(Signal* const sig) : m_sig(sig) {}
+    int generate() override {
+        std::cout << "Decorating with square\n";
+        return m_sig->generate() + generate_square();
     }
+};
 
-    delete generator;
-    std::cin.get();
+struct SineDecorator : Signal {
+   private:
+    Signal* m_sig;
+
+    int generate_sine() { return 2; }
+
+   public:
+    SineDecorator(Signal* const sig) : m_sig(sig) {}
+    int generate() override {
+        std::cout << "Decorating with sine\n";
+        return m_sig->generate() + generate_sine();
+    }
+};
+
+struct TriangleDecorator : Signal {
+   private:
+    Signal* m_sig;
+
+    int generate_triangle() { return 3; }
+
+   public:
+    TriangleDecorator(Signal* const sig) : m_sig(sig) {}
+    int generate() override {
+        std::cout << "Decorating with triangle\n";
+        return m_sig->generate() + generate_triangle();
+    }
+};
+
+int main() {
+    Signal sig;
+    SineDecorator sine_dec(&sig);
+    TriangleDecorator tr_dec(&sine_dec);
+    SquareDecorator sq_dec(&tr_dec);
+
+    std::cout << sq_dec.generate();
 }
