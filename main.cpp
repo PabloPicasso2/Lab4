@@ -47,7 +47,7 @@ struct TriangleDecorator : Signal {
 
     // output = (2 * amplitude / 3.14) * asin(sin(2 * 3.14 * time / period));
     //double generate_triangle() { return 0.0; }
-    double generate_triangle() { return (2 * 1 / 3.14) * asin(sin(2 * 3.14 * 1 / 12)); }
+    double generate_triangle() { return (2.0 * 1.0 / 3.14) * asin(sin(2.0 * 3.14 * 1.0 / 12.0)); }
 
    public:
     TriangleDecorator(Signal* const sig) : m_sig(sig) {}
