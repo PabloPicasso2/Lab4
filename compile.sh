@@ -1,1 +1,0 @@
-g++ -o main main.cpp gen/gen.cpp square/square.cpp sinus/sinus.cpp triangle/triangle.cpp
