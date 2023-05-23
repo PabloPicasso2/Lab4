@@ -6,7 +6,7 @@
 
 int main()
 {
-    Comp_Gen *generator = new Comp_Concrete(0.0);
+    Comp_Gen *generator = new Comp_Concrete(2.0);
     double period1 = 12.0, amplitude1 = 1.0;
     // Dec_square: period = 10.0, amplitude1 = 1.0
     //generator = new Dec_square(generator, amplitude1, period1);
