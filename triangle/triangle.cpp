@@ -12,5 +12,5 @@ double Dec_triangle::generate()
     // next call of generate() will be for the next sample
     m_time += 1;
 
-    return output;
+    return output + generator;
 }
