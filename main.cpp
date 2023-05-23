@@ -23,7 +23,8 @@ struct SquareDecorator : Signal {
 struct SineDecorator : Signal {
    private:
     Signal* m_sig;
-
+    
+    // output = m_amplitude * sin(2 * 3.14159 *m_time / m_period);
     int generate_sine() { return 2; }
 
    public:
@@ -38,6 +39,7 @@ struct TriangleDecorator : Signal {
    private:
     Signal* m_sig;
 
+    // output = (2 * m_amplitude / 3.14) * asin(sin(2 * 3.14 * m_time / m_period));
     int generate_triangle() { return 3; }
 
    public:
